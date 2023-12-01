@@ -19,3 +19,18 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  * The cleaner shorthand for printing output.
  */
 fun Any?.println() = println(this)
+
+inline fun <R : Any> CharSequence.lastNotNullOf(transform: (Char) -> R?): R {
+    return lastNotNullOfOrNull(transform) ?: throw NoSuchElementException("No element of the char sequence was transformed to a non-null value.")
+}
+
+inline fun <R : Any> CharSequence.lastNotNullOfOrNull(transform: (Char) -> R?): R? {
+    for (index in this.indices.reversed()) {
+        val element = this[index]
+        val result = transform(element)
+        if (result != null) {
+            return result
+        }
+    }
+    return null
+}
