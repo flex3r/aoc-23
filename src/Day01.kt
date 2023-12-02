@@ -1,6 +1,5 @@
 fun main() {
-    fun part1(input: List<String>): Int = input.sumOf { it.sumFirstTwoNumbers() }
-    fun part2(input: List<String>): Int = input.sumOf { it.replaceSpelledNumbers().sumFirstTwoNumbers() }
+
 
     val testInput = readInput("Day01_test")
     check(part1(testInput) == 142)
@@ -12,8 +11,12 @@ fun main() {
     part2(input).println()
 }
 
-fun String.sumFirstTwoNumbers(): Int = firstNotNullOf(Char::digitToIntOrNull) * 10 + lastNotNullOf(Char::digitToIntOrNull)
-fun String.replaceSpelledNumbers(): String = this
+private fun part1(input: List<String>): Int = input.sumOf { it.sumFirstTwoNumbers() }
+private fun part2(input: List<String>): Int = input.sumOf { it.replaceSpelledNumbers().sumFirstTwoNumbers() }
+
+private fun String.sumFirstTwoNumbers(): Int = firstNotNullOf(Char::digitToIntOrNull) * 10 + lastNotNullOf(Char::digitToIntOrNull)
+
+private fun String.replaceSpelledNumbers(): String = this
     .replace("one", "one1one")
     .replace("two", "two2two")
     .replace("three", "three3three")
