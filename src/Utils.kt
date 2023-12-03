@@ -34,3 +34,13 @@ inline fun <R : Any> CharSequence.lastNotNullOfOrNull(transform: (Char) -> R?): 
     }
     return null
 }
+
+fun Iterable<Int>.product(): Int = reduce { acc, i -> acc * i }
+
+inline fun List<String>.sumOfChars(selector: (x: Int, y: Int, c: Char) -> Int): Int {
+    return withIndex().sumOf { (y, line) ->
+        line.withIndex().sumOf { (x, char) ->
+            selector(x, y, char)
+        }
+    }
+}
