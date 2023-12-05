@@ -3,6 +3,7 @@ import java.security.MessageDigest
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 import kotlin.math.pow
+import kotlin.time.measureTime
 
 /**
  * Reads lines from the given input txt file.
@@ -47,3 +48,19 @@ inline fun List<String>.sumOfChars(selector: (x: Int, y: Int, c: Char) -> Int): 
 }
 
 fun Int.pow(n: Int) = toDouble().pow(n).toInt()
+
+inline fun <T> Collection<T>.partitionBy(predicate: (T) -> Boolean): List<List<T>> {
+    return fold(mutableListOf(mutableListOf<T>())) { acc, it ->
+        when {
+            predicate(it) -> acc.add(mutableListOf())
+            else -> acc.last() += it
+        }
+        acc
+    }
+}
+
+inline fun <T> measureAndPrintResult(crossinline block: () -> T) {
+    measureTime {
+        println(block())
+    }.also { println("Took $it") }
+}
