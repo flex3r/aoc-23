@@ -57,10 +57,10 @@ private fun part2(input: List<String>): Long {
                 val mappedRange = min(seed.last, end) - max(seed.first, start)
                 mapped += mappedStart..mappedStart + mappedRange
                 if (seed.first < start) {
-                    queue += seed.first..seed.first + (start - seed.first)
+                    queue += seed.first..<start
                 }
                 if (seed.last > end) {
-                    queue += end..end + (seed.last - end)
+                    queue += end + 1..seed.last
                 }
             }
             mapped
