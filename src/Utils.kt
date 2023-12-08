@@ -64,3 +64,19 @@ inline fun <T> measureAndPrintResult(crossinline block: () -> T) {
         println(block())
     }.also { println("Took $it") }
 }
+
+fun <T> Sequence<T>.repeat() = sequence { while (true) yieldAll(this@repeat) }
+
+fun lcm(a: Long, b: Long) = a * b / gcd(a, b)
+fun gcd(a: Long, b: Long): Long {
+    var num1 = a
+    var num2 = b
+
+    while (num2 != 0L) {
+        val temp = num2
+        num2 = num1 % num2
+        num1 = temp
+    }
+
+    return num1
+}
