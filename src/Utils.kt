@@ -80,3 +80,18 @@ fun gcd(a: Long, b: Long): Long {
 
     return num1
 }
+
+fun <T> bfs(start: T, neighbors: (T) -> List<T>) = sequence {
+    val queue = ArrayDeque(listOf(start.withIndex(index = 0)))
+    val seen = mutableSetOf(start)
+    while (queue.isNotEmpty()) {
+        val (index, current) = queue.removeFirst().also { yield(it) }
+        neighbors(current).forEach { neighbor ->
+            if (seen.add(neighbor)) {
+                queue.add(neighbor.withIndex(index = index + 1))
+            }
+        }
+    }
+}
+
+fun <T> T.withIndex(index: Int) = IndexedValue(index, value = this)
