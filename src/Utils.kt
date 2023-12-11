@@ -1,5 +1,8 @@
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.*
+import kotlin.NoSuchElementException
+import kotlin.collections.ArrayDeque
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 import kotlin.math.pow
@@ -95,3 +98,24 @@ fun <T> bfs(start: T, neighbors: (T) -> List<T>) = sequence {
 }
 
 fun <T> T.withIndex(index: Int) = IndexedValue(index, value = this)
+
+fun <T> combinations(values: List<T>, m: Int) = sequence {
+    val n = values.size
+    val result = MutableList(m) { values[0] }
+    val stack = Stack<Int>()
+    stack.push(0)
+    while (stack.isNotEmpty()) {
+        var resIndex = stack.lastIndex
+        var arrIndex = stack.pop()
+
+        while (arrIndex < n) {
+            result[resIndex++] = values[arrIndex++]
+            stack.push(arrIndex)
+
+            if (resIndex == m) {
+                yield(result.toList())
+                break
+            }
+        }
+    }
+}
