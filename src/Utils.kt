@@ -119,3 +119,5 @@ fun <T> combinations(values: List<T>, m: Int) = sequence {
         }
     }
 }
+
+fun List<String>.transposeLines(): List<String> = this[0].indices.map { x -> indices.map { y -> this[y][x] }.joinToString(separator = "") }
