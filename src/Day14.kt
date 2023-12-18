@@ -86,4 +86,4 @@ private fun List<List<Shape>>.roll(x: Int, y: Int, direction: Direction): Pair<I
 private fun List<List<Shape>>.sum() = indices.sumOf { y -> (size - y) * this[y].count { it == Round } }
 
 private enum class Shape { Round, Cubed, Empty }
-private enum class Direction { North, West, South, East }
+

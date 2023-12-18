@@ -1,3 +1,4 @@
+import Direction.*
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.*
@@ -121,3 +122,16 @@ fun <T> combinations(values: List<T>, m: Int) = sequence {
 }
 
 fun List<String>.transposeLines(): List<String> = this[0].indices.map { x -> indices.map { y -> this[y][x] }.joinToString(separator = "") }
+
+data class Point(val x: Int, val y: Int) {
+    operator fun plus(direction: Direction) = when (direction) {
+        North -> copy(y = y - 1)
+        West -> copy(x = x - 1)
+        South -> copy(y = y + 1)
+        East -> copy(x = x + 1)
+    }
+}
+
+enum class Direction { North, West, South, East }
+
+fun List<List<*>>.isInBounds(point: Point) = point.y in indices && point.x in get(point.y).indices
