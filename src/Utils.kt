@@ -1,11 +1,13 @@
-import Direction.*
+import Direction.East
+import Direction.North
+import Direction.South
+import Direction.West
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.*
-import kotlin.NoSuchElementException
-import kotlin.collections.ArrayDeque
+import java.util.Stack
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
+import kotlin.math.absoluteValue
 import kotlin.math.pow
 import kotlin.time.measureTime
 
@@ -130,8 +132,30 @@ data class Point(val x: Int, val y: Int) {
         South -> copy(y = y + 1)
         East -> copy(x = x + 1)
     }
+
+    operator fun plus(other: Point) = copy(x = x + other.x, y = y + other.y)
+    operator fun times(factor: Int) = copy(x = x * factor, y = y * factor)
 }
 
 enum class Direction { North, West, South, East }
 
+fun Direction.asPoint() = when (this) {
+    North -> Point(0, -1)
+    West -> Point(-1, 0)
+    South -> Point(0, 1)
+    East -> Point(1, 0)
+}
+
 fun List<List<*>>.isInBounds(point: Point) = point.y in indices && point.x in get(point.y).indices
+
+// shoelace
+fun List<Point>.area(): Long {
+    var border = 0L
+    val sum = indices.sumOf {
+        val (x1, y1) = this[it]
+        val (x2, y2) = this[(it + 1) % this.size]
+        border += (x1 - x2).absoluteValue + (y1 - y2).absoluteValue
+        x1.toLong() * y2 - y1.toLong() * x2
+    } / 2
+    return sum - border / 2 + 1 + border
+}
