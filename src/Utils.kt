@@ -159,3 +159,5 @@ fun List<Point>.area(): Long {
     } / 2
     return sum - border / 2 + 1 + border
 }
+
+val IntRange.size get() = last - first + 1
