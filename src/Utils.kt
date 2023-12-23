@@ -126,6 +126,14 @@ fun <T> combinations(values: List<T>, m: Int) = sequence {
 fun List<String>.transposeLines(): List<String> = this[0].indices.map { x -> indices.map { y -> this[y][x] }.joinToString(separator = "") }
 
 data class Point(val x: Int, val y: Int) {
+    val cardinal
+        get() = listOf(
+            this + North,
+            this + West,
+            this + South,
+            this + East,
+        )
+
     operator fun plus(direction: Direction) = when (direction) {
         North -> copy(y = y - 1)
         West -> copy(x = x - 1)
