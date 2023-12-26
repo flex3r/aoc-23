@@ -4,3 +4,4 @@ dependencies:
     - org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3
     - org.jetbrains.kotlinx:multik-core:0.2.2
     - org.jetbrains.kotlinx:multik-default:0.2.2
+    - org.jgrapht:jgrapht-core:1.5.1
